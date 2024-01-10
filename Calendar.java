@@ -1,7 +1,7 @@
 /**
  * Prints the calendars of all the years in the 20th century.
  */
-public class Calendar1 {
+public class Calendar {
     // Starting the calendar on 1/1/1900
     static int dayOfMonth = 1;
     static int month = 1;
@@ -18,17 +18,24 @@ public class Calendar1 {
         // Prints each date dd/mm/yyyy in a separate line. If the day is a Sunday, prints "Sunday".
         // The following variable, used for debugging purposes, counts how many days were advanced so far.
         int debugDaysCounter = 0;
-        int numOfSundaysOnTheFirstDay = 0;
+
+        // Parse the command line
+        int givenYear = Integer.parseInt(args[0]);
+
+        // Make sure the given year is greater than 1900
+        if (givenYear < 1900) {
+            System.out.printf("%d is an invalid year\n", givenYear);
+            System.exit(1);
+        }
         //// Write the necessary initialization code, and replace the condition
         //// of the while loop with the necessary condition
-        while (year <= 1999) {
-            if (dayOfWeek == 1) {
-                System.out.printf("%d/%d/%d Sunday\n", dayOfMonth, month, year);
-                if (dayOfMonth == 1) {
-                    numOfSundaysOnTheFirstDay++;
+        while (year <= givenYear) {
+            if (year == givenYear) {
+                if (dayOfWeek == 1) {
+                    System.out.printf("%d/%d/%d Sunday\n", dayOfMonth, month, year);
+                } else {
+                    System.out.printf("%d/%d/%d\n", dayOfMonth, month, year);
                 }
-            } else {
-                System.out.printf("%d/%d/%d\n", dayOfMonth, month, year);
             }
             advance();
             debugDaysCounter++;
@@ -38,7 +45,6 @@ public class Calendar1 {
             //                break;
             //            }
         }
-        System.out.printf("During the 20th century, %d Sundays fell on the first day of the month\n", numOfSundaysOnTheFirstDay);
     }
 
     // Advances the date (day, month, year) and the day-of-the-week.
